@@ -9,7 +9,7 @@ class Clusterizer:
         self.n_clusters = n_clusters
         self.train_alphas = np.array([a for aa in dataset.train_data_features[2] for a in aa])
         
-        self.angle_class, self.angle_class_idxs = self._clusterize()
+        self.angle_class, self.angle_class_idxs, self.centers = self._clusterize()
         self.min_max_class = [(min(c), max(c)) for c in self.angle_class]
 
 
@@ -29,7 +29,7 @@ class Clusterizer:
                 angle_class_idxs[i], angle_class_idxs[0] = angle_class_idxs[0], angle_class_idxs[i]
                 break
                 
-        return angle_class, angle_class_idxs
+        return angle_class, angle_class_idxs, kmeans.cluster_centers_
 
     
     def ang_to_class(self, angles):

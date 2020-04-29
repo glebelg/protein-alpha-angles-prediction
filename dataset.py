@@ -1,4 +1,5 @@
 import torch
+import warnings
 import numpy as np
 import torch.nn.functional as F
 
@@ -9,6 +10,9 @@ from torch.utils.data import DataLoader, TensorDataset
 class Dataset:
     def __init__(self, data, max_len_seq, len_subseq, batch_size=16, train_size=0.85):
         assert max_len_seq >= len_subseq + 2, 'max_len_seq must be at least 2 more then len_subseq'
+
+        if len_subseq < 7:
+            warnings.warn("some models are not designed for subsequences shorter than 8")
         
         self.data = data
         self.max_len_seq = max_len_seq

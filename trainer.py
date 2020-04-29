@@ -24,6 +24,7 @@ class Trainer:
         self.train_loss_log, self.train_f1_log = [], []
         self.test_loss_log, self.test_f1_log = [], []
         self.preds, self.targs = None, None
+        self.epochs = 0
 
 
     def train_epoch(self):
@@ -90,7 +91,7 @@ class Trainer:
 
     def train(self, n_epochs):
         for epoch in range(n_epochs):
-            print("Epoch {0} of {1}".format(epoch, n_epochs))
+            print("Epoch {0} of {1}".format(epoch + self.epochs, n_epochs))
             train_loss, train_f1, steps = self.train_epoch()
 
             test_loss, test_f1 = self.test()
@@ -98,10 +99,12 @@ class Trainer:
             self.train_loss_log.extend(train_loss)
             self.train_f1_log.extend(train_f1)
 
-            self.test_loss_log.append((steps * (epoch + 1), np.mean(test_loss)))
-            self.test_f1_log.append((steps * (epoch + 1), np.mean(test_f1)))
+            self.test_loss_log.append((steps * (self.epochs + epoch + 1), np.mean(test_loss)))
+            self.test_f1_log.append((steps * (self.epochs + epoch + 1), np.mean(test_f1)))
 
             clear_output()
             self.plot_history(self.train_loss_log, self.test_loss_log)
             self.plot_history(self.train_f1_log, self.test_f1_log, title='f1')
-            print("Epoch: {0}, val loss: {1}, val f1: {2}".format(epoch + 1, np.mean(test_loss), np.mean(test_f1)))
+            print("Epoch: {0}, val loss: {1}, val f1: {2}".format(self.epochs + epoch + 1, np.mean(test_loss), np.mean(test_f1)))
+
+        self.epochs += n_epochs

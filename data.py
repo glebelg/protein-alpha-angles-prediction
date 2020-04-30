@@ -3,7 +3,7 @@ from tqdm import tqdm, trange
 
 
 DATA_DIR_PATH = './data/casp12/'
-TRAIN_FILES = ['training_30']
+TRAIN_FILES = ['training_30', 'training_50']
 
 
 class Data:   

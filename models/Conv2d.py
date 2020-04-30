@@ -19,12 +19,13 @@ class Conv2d(nn.Module):
             nn.Dropout(0.1),
             nn.MaxPool2d(2),
 
-            nn.Conv2d(16, 32, 3, padding=1),
+            nn.Conv2d(16, 32, 3),
             nn.ReLU(),
             nn.BatchNorm2d(32),
             nn.Dropout(0.1),
+            nn.MaxPool2d(2),
 
-            nn.Conv2d(32, 64, 3, padding=1),
+            nn.Conv2d(32, 64, 3),
             nn.ReLU(),
             nn.BatchNorm2d(64),
             nn.Dropout(0.1),
@@ -34,7 +35,7 @@ class Conv2d(nn.Module):
             nn.Dropout(0.1),
             
             nn.Flatten(),
-            nn.Linear(128 * ((len_subseq - 2) // 2 - 2) * (((seq[1] + pssm[0]) - 2) // 2 - 2), 64),
+            nn.Linear(128 * (((len_subseq - 2) // 2 - 2) // 2 - 4) * ((((seq[1] + pssm[0]) - 2) // 2 - 2) // 2 - 4), 64),
             nn.Linear(64, (len_subseq - 1) * n_class)
         )
          

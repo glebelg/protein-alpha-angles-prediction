@@ -91,7 +91,7 @@ class Trainer:
 
     def train(self, n_epochs):
         for epoch in range(n_epochs):
-            print("Epoch {0} of {1}".format(epoch + self.epochs, n_epochs))
+            print("Epoch {0} of {1}".format(epoch + self.epochs, n_epochs + self.epochs))
             train_loss, train_f1, steps = self.train_epoch()
 
             test_loss, test_f1 = self.test()

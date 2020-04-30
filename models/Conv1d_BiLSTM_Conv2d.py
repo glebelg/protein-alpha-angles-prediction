@@ -63,22 +63,25 @@ class Conv1d_BiLSTM_Conv2d(nn.Module):
 
         self.conv2d = nn.Sequential(
             nn.Conv2d(1, 8, 3),
+            nn.Conv2d(8, 8, 3),
             nn.ReLU(),
             nn.BatchNorm2d(8),
             nn.Dropout(0.2),
             
             nn.Conv2d(8, 16, 3),
+            nn.Conv2d(16, 16, 3),
             nn.ReLU(),
             nn.BatchNorm2d(16),
             nn.Dropout(0.2),
 
             nn.Conv2d(16, 32, 3),
+            nn.Conv2d(32, 32, 3),
             nn.ReLU(),
             nn.Dropout(0.2)
         )
         
         self.flatten = nn.Flatten()
-        self.fc1 = nn.Linear(32 * (len_subseq - 6) * (hidden_size // 16 - 6), 64)
+        self.fc1 = nn.Linear(32 * (len_subseq - 12) * (hidden_size // 16 - 12), 64)
         self.fc2 = nn.Linear(64, (len_subseq - 1) * n_class)
 
 
